@@ -299,16 +299,31 @@ function buildGallery() {
     renderGallery();
 }
 
+let visibleCount = 20;
+
 function renderGallery() {
     const filtered = currentFilter === 'all' ? allPhotos : allPhotos.filter(p => p.cat === currentFilter);
-    galleryEl.innerHTML = filtered.map((p, i) => `
+    const visible = filtered.slice(0, visibleCount);
+    const hasMore = filtered.length > visibleCount;
+    galleryEl.innerHTML = visible.map((p) => `
         <img src="${p.src}" alt="Работа травертин" loading="lazy"
              onclick="openLightbox(${allPhotos.indexOf(p)})"
              onerror="this.parentNode.removeChild(this)">
-    `).join('');
+    `).join('') + (hasMore ? `
+        <div id="load-more-wrap" style="grid-column:span 2;text-align:center;padding:16px 0;">
+            <button onclick="loadMore()" style="padding:12px 32px;border-radius:50px;border:2px solid var(--color);background:white;color:var(--color);font-weight:700;font-size:1rem;cursor:pointer;">
+                Показать ещё (${filtered.length - visibleCount})
+            </button>
+        </div>` : '');
+}
+
+function loadMore() {
+    visibleCount += 20;
+    renderGallery();
 }
 
 function filterGallery(cat, btn) {
+    visibleCount = 20;
     currentFilter = cat;
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Декоративная штукатурка Травертин — Новосибирск | от 1800 руб/м²</title>
+    <meta name="description" content="Декоративное покрытие Травертин для фасадов и внутренних работ в Новосибирске. Работаем со своим материалом. Цена от 1800 руб/м² под ключ.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --color: #b45309;
+            --color-dark: #92400e;
+            --color-light: #fef3c7;
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1f2937; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh; min-height: 520px; max-height: 800px;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; overflow: hidden; color: white;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background-image: url('photos/photo1.jpg');
+            background-size: cover; background-position: center;
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%);
+        }
+        .hero-content { position: relative; z-index: 1; padding: 0 20px; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 24px; padding: 6px 18px;
+            font-size: 0.82rem; letter-spacing: 0.08em;
+            text-transform: uppercase; margin-bottom: 18px;
+            backdrop-filter: blur(4px);
+        }
+        .hero h1 { font-size: 2.8rem; font-weight: 900; line-height: 1.1; margin-bottom: 14px; text-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+        .hero p { font-size: 1.1rem; opacity: 0.92; max-width: 500px; margin: 0 auto 32px; text-shadow: 0 1px 6px rgba(0,0,0,0.3); }
+        .btn-call {
+            display: inline-block; background: var(--color); color: white;
+            font-weight: 700; font-size: 1.1rem; padding: 16px 44px;
+            border-radius: 50px; text-decoration: none;
+            box-shadow: 0 6px 28px rgba(0,0,0,0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-call:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(0,0,0,0.35); }
+        .hero-price {
+            position: absolute; bottom: 28px; left: 0; right: 0;
+            text-align: center; font-size: 1rem; z-index: 1; opacity: 0.9;
+        }
+        .hero-price strong { font-size: 1.4rem; }
+
+        /* Что такое травертин */
+        .about-material { padding: 56px 0; background: white; }
+        .about-material h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 16px; }
+        .about-material p { color: #374151; margin-bottom: 14px; font-size: 0.975rem; }
+        .props-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px; margin-top: 28px;
+        }
+        .prop-card {
+            background: #fffbeb; border: 1px solid #fde68a;
+            border-radius: 14px; padding: 20px 16px; text-align: center;
+        }
+        .prop-icon { font-size: 2rem; margin-bottom: 8px; }
+        .prop-card h3 { font-size: 0.95rem; font-weight: 700; color: #92400e; margin-bottom: 4px; }
+        .prop-card p { font-size: 0.82rem; color: #78350f; }
+
+        /* Работы */
+        .works { padding: 56px 0; background: #f9fafb; }
+        .works h2 { font-size: 1.8rem; font-weight: 800; text-align: center; margin-bottom: 8px; }
+        .works-sub { text-align: center; color: #6b7280; margin-bottom: 32px; font-size: 0.95rem; }
+
+        /* Табы категорий */
+        .tabs { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+        .tab-btn {
+            padding: 8px 18px; border-radius: 24px; border: 2px solid #e5e7eb;
+            background: white; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
+            font-weight: 600;
+        }
+        .tab-btn.active, .tab-btn:hover { background: var(--color); border-color: var(--color); color: white; }
+
+        /* Галерея */
+        .gallery { columns: 2; gap: 10px; }
+        .gallery img {
+            width: 100%; margin-bottom: 10px; border-radius: 10px;
+            cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+            display: block; break-inside: avoid;
+        }
+        .gallery img:hover { transform: scale(1.02); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+        /* Лайтбокс */
+        .lightbox {
+            display: none; position: fixed; inset: 0; z-index: 1000;
+            background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 95vw; max-height: 90vh; border-radius: 8px; }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 24px;
+            color: white; font-size: 2rem; cursor: pointer; line-height: 1;
+        }
+        .lightbox-prev, .lightbox-next {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            color: white; font-size: 2.5rem; cursor: pointer; padding: 0 16px;
+            user-select: none;
+        }
+        .lightbox-prev { left: 0; }
+        .lightbox-next { right: 0; }
+
+        /* Цена */
+        .price-section { padding: 56px 0; background: white; }
+        .price-section h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 28px; text-align: center; }
+        .price-card {
+            background: linear-gradient(135deg, var(--color) 0%, var(--color-dark) 100%);
+            color: white; border-radius: 20px; padding: 36px 28px; text-align: center;
+            max-width: 420px; margin: 0 auto;
+        }
+        .price-num { font-size: 3rem; font-weight: 900; line-height: 1; }
+        .price-unit { font-size: 1rem; opacity: 0.85; margin-bottom: 20px; }
+        .price-includes { list-style: none; text-align: left; margin-bottom: 24px; }
+        .price-includes li { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.15); font-size: 0.95rem; }
+        .price-includes li:last-child { border: none; }
+        .price-includes li::before { content: "✓ "; font-weight: 700; }
+
+        /* CTA */
+        .cta {
+            padding: 64px 0;
+            background: #1f2937;
+            color: white; text-align: center;
+        }
+        .cta h2 { font-size: 1.9rem; font-weight: 800; margin-bottom: 10px; }
+        .cta p { opacity: 0.75; margin-bottom: 32px; font-size: 1rem; max-width: 440px; margin-left: auto; margin-right: auto; }
+        .cta-phone {
+            display: inline-block; background: var(--color); color: white;
+            font-weight: 800; font-size: 1.35rem; padding: 16px 48px;
+            border-radius: 50px; text-decoration: none;
+            box-shadow: 0 6px 28px rgba(0,0,0,0.3); transition: transform 0.2s;
+        }
+        .cta-phone:hover { transform: translateY(-2px); }
+        .cta-note { margin-top: 14px; font-size: 0.85rem; opacity: 0.5; }
+
+        footer {
+            background: #111827; color: #9ca3af;
+            text-align: center; padding: 20px; font-size: 0.82rem;
+        }
+
+        .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 540px) {
+            .hero h1 { font-size: 2rem; }
+            .gallery { columns: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">Новосибирск</div>
+        <h1>Декоративная штукатурка<br>Травертин</h1>
+        <p>Отделка фасадов и интерьеров. Работаем со своим материалом — под ключ</p>
+        <a href="tel:+7XXXXXXXXXX" class="btn-call">📞 Получить расчёт</a>
+    </div>
+    <div class="hero-price">от <strong>1 800 ₽</strong>/м² — материал + работа</div>
+</section>
+
+<section class="about-material">
+    <div class="container">
+        <h2 class="fade-up">Что такое покрытие Травертин</h2>
+        <p class="fade-up">Травертин — декоративная штукатурка, имитирующая природный камень. Создаёт эффектный рельеф на фасадах, заборах и стенах. Выглядит дорого, служит десятилетиями.</p>
+        <p class="fade-up">Мы работаем со своим материалом — это значит гарантированное качество состава и никаких наценок посредников.</p>
+        <div class="props-grid">
+            <div class="prop-card fade-up">
+                <div class="prop-icon">🏠</div>
+                <h3>Фасады</h3>
+                <p>Наружные стены домов, коттеджей, коммерческих зданий</p>
+            </div>
+            <div class="prop-card fade-up">
+                <div class="prop-icon">🧱</div>
+                <h3>Заборы и ограждения</h3>
+                <p>Декоративная отделка заборных панелей и столбов</p>
+            </div>
+            <div class="prop-card fade-up">
+                <div class="prop-icon">🛋️</div>
+                <h3>Интерьеры</h3>
+                <p>Внутренние стены, колонны, арки — внутри помещений</p>
+            </div>
+            <div class="prop-card fade-up">
+                <div class="prop-icon">🔧</div>
+                <h3>Под ключ</h3>
+                <p>Материал + работа в одной цене, без скрытых доплат</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="works">
+    <div class="container">
+        <h2 class="fade-up">Наши работы</h2>
+        <p class="works-sub fade-up">Выполненные объекты в Новосибирске и области</p>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="filterGallery('all', this)">Все работы</button>
+            <button class="tab-btn" onclick="filterGallery('facade', this)">Фасады</button>
+            <button class="tab-btn" onclick="filterGallery('fence', this)">Заборы</button>
+            <button class="tab-btn" onclick="filterGallery('interior', this)">Интерьеры</button>
+        </div>
+
+        <div class="gallery" id="gallery">
+            <!-- Фото генерируются JS -->
+        </div>
+    </div>
+</section>
+
+<section class="price-section">
+    <div class="container">
+        <h2 class="fade-up">Стоимость работ</h2>
+        <div class="price-card fade-up">
+            <div class="price-num">от 1 800 ₽</div>
+            <div class="price-unit">за м² — всё включено</div>
+            <ul class="price-includes">
+                <li>Материал (собственного производства)</li>
+                <li>Подготовка поверхности</li>
+                <li>Нанесение покрытия</li>
+                <li>Финишная обработка</li>
+                <li>Гарантия на работы</li>
+            </ul>
+            <a href="tel:+7XXXXXXXXXX" class="btn-call" style="background:white;color:#92400e;">📞 Узнать точную цену</a>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="container">
+        <h2>Сделаем расчёт бесплатно</h2>
+        <p>Позвоните — скажите площадь объекта, расскажем стоимость и сроки</p>
+        <a href="tel:+7XXXXXXXXXX" class="cta-phone">📞 Позвонить</a>
+        <div class="cta-note">Работаем по Новосибирску и области</div>
+    </div>
+</section>
+
+<footer>
+    <strong>Травертин — Новосибирск</strong> · Декоративная штукатурка для фасадов и интерьеров
+</footer>
+
+<!-- Лайтбокс -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <span class="lightbox-close" onclick="closeLightbox()">×</span>
+    <span class="lightbox-prev" onclick="lightboxNav(-1, event)">‹</span>
+    <img id="lightbox-img" src="" alt="">
+    <span class="lightbox-next" onclick="lightboxNav(1, event)">›</span>
+</div>
+
+<script>
+// Генерируем список фото (84 штуки)
+const TOTAL_PHOTOS = 84;
+
+// Простая категоризация по номеру (можно поменять вручную)
+// 1-30: фасады, 31-50: заборы, 51-84: разное
+function getCategory(n) {
+    if (n <= 30) return 'facade';
+    if (n <= 50) return 'fence';
+    return 'interior';
+}
+
+const galleryEl = document.getElementById('gallery');
+let allPhotos = [];
+let currentFilter = 'all';
+let lightboxIndex = 0;
+
+function buildGallery() {
+    allPhotos = [];
+    for (let i = 1; i <= TOTAL_PHOTOS; i++) {
+        allPhotos.push({ src: `photos/photo${i}.jpg`, cat: getCategory(i) });
+    }
+    renderGallery();
+}
+
+function renderGallery() {
+    const filtered = currentFilter === 'all' ? allPhotos : allPhotos.filter(p => p.cat === currentFilter);
+    galleryEl.innerHTML = filtered.map((p, i) => `
+        <img src="${p.src}" alt="Работа травертин" loading="lazy"
+             onclick="openLightbox(${allPhotos.indexOf(p)})"
+             onerror="this.parentNode.removeChild(this)">
+    `).join('');
+}
+
+function filterGallery(cat, btn) {
+    currentFilter = cat;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGallery();
+}
+
+function openLightbox(idx) {
+    lightboxIndex = idx;
+    document.getElementById('lightbox-img').src = allPhotos[idx].src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+    if (e && e.target !== document.getElementById('lightbox') && !e.target.classList.contains('lightbox-close')) return;
+    if (!e) {
+        document.getElementById('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+    } else if (e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-close')) {
+        document.getElementById('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+}
+
+function lightboxNav(dir, e) {
+    e.stopPropagation();
+    lightboxIndex = (lightboxIndex + dir + allPhotos.length) % allPhotos.length;
+    document.getElementById('lightbox-img').src = allPhotos[lightboxIndex].src;
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+    if (e.key === 'ArrowLeft') lightboxNav(-1, { stopPropagation: () => {} });
+    if (e.key === 'ArrowRight') lightboxNav(1, { stopPropagation: () => {} });
+});
+
+// Fade-up анимации
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+buildGallery();
+</script>
+</body>
+</html>

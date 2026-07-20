@@ -154,6 +154,22 @@
         .cta-phone:hover { transform: translateY(-2px); }
         .cta-note { margin-top: 14px; font-size: 0.85rem; opacity: 0.5; }
 
+        /* Contact form */
+        .contact-form { margin-top: 28px; max-width: 380px; margin-left: auto; margin-right: auto; }
+        .contact-form input {
+            width: 100%; padding: 14px 18px; border-radius: 12px; border: none;
+            font-size: 1rem; margin-bottom: 10px; color: #1f2937;
+        }
+        .contact-form button {
+            width: 100%; padding: 15px; border-radius: 12px; border: none;
+            background: var(--color); color: white; font-weight: 800; font-size: 1.05rem;
+            cursor: pointer; transition: opacity 0.2s;
+        }
+        .contact-form button:hover { opacity: 0.9; }
+        .contact-form button:disabled { opacity: 0.6; cursor: default; }
+        .form-success { color: #86efac; font-size: 1rem; margin-top: 12px; display: none; }
+        .form-error { color: #fca5a5; font-size: 0.9rem; margin-top: 8px; display: none; }
+
         footer {
             background: #111827; color: #9ca3af;
             text-align: center; padding: 20px; font-size: 0.82rem;
@@ -260,8 +276,43 @@
             <a href="https://wa.me/79607990005" target="_blank" style="display:inline-block;background:#25D366;color:white;font-weight:700;font-size:1rem;padding:12px 28px;border-radius:50px;text-decoration:none;">💬 WhatsApp</a>
         </div>
         <div class="cta-note">Работаем по Новосибирску и области</div>
+
+        <form class="contact-form" id="contactForm">
+            <input type="text" id="formName" placeholder="Ваше имя" />
+            <input type="tel" id="formPhone" placeholder="Номер телефона *" required />
+            <button type="submit" id="formBtn">Оставить заявку</button>
+            <div class="form-success" id="formSuccess">✅ Заявка отправлена! Перезвоним вам.</div>
+            <div class="form-error" id="formError">Ошибка отправки. Позвоните нам напрямую.</div>
+        </form>
     </div>
 </section>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('formBtn');
+    const name = document.getElementById('formName').value.trim();
+    const phone = document.getElementById('formPhone').value.trim();
+    if (!phone) return;
+    btn.disabled = true;
+    btn.textContent = 'Отправляем...';
+    try {
+        const r = await fetch('https://loreworlds.ru:8443/api/travertin-contact', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({name, phone})
+        });
+        if (r.ok) {
+            document.getElementById('formSuccess').style.display = 'block';
+            document.getElementById('contactForm').style.display = 'none';
+        } else { throw new Error(); }
+    } catch {
+        btn.disabled = false;
+        btn.textContent = 'Оставить заявку';
+        document.getElementById('formError').style.display = 'block';
+    }
+});
+</script>
 
 <footer>
     <strong>Травертин — Новосибирск</strong> · Декоративная штукатурка для фасадов и интерьеров

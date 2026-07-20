@@ -354,6 +354,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
 
 <script>
 // Чат-виджет
+document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('chatToggle').addEventListener('click', function() {
     document.getElementById('chatWindow').classList.toggle('open');
 });
@@ -382,6 +383,7 @@ document.getElementById('chatSend').addEventListener('click', async function() {
         alert('Ошибка. Напишите нам напрямую в Telegram или WhatsApp.');
     }
 });
+}); // DOMContentLoaded
 </script>
 
 <footer>

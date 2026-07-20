@@ -170,6 +170,42 @@
         .form-success { color: #86efac; font-size: 1rem; margin-top: 12px; display: none; }
         .form-error { color: #fca5a5; font-size: 0.9rem; margin-top: 8px; display: none; }
 
+        /* Чат-виджет */
+        .chat-btn {
+            position: fixed; bottom: 24px; right: 24px; z-index: 1000;
+            width: 60px; height: 60px; border-radius: 50%;
+            background: var(--color); color: white; font-size: 1.6rem;
+            border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.2s;
+        }
+        .chat-btn:hover { transform: scale(1.08); }
+        .chat-window {
+            position: fixed; bottom: 96px; right: 24px; z-index: 1000;
+            width: 300px; background: white; border-radius: 18px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.2); display: none; overflow: hidden;
+        }
+        .chat-window.open { display: flex; flex-direction: column; }
+        .chat-header {
+            background: var(--color); color: white; padding: 14px 18px;
+            font-weight: 700; font-size: 0.95rem;
+        }
+        .chat-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .chat-body input, .chat-body textarea {
+            width: 100%; padding: 10px 14px; border: 1px solid #e5e7eb;
+            border-radius: 10px; font-size: 0.95rem; font-family: inherit;
+            resize: none; color: #1f2937;
+        }
+        .chat-body textarea { height: 80px; }
+        .chat-send {
+            width: 100%; padding: 11px; background: var(--color); color: white;
+            font-weight: 700; font-size: 0.95rem; border: none; border-radius: 10px;
+            cursor: pointer; transition: opacity 0.2s;
+        }
+        .chat-send:hover { opacity: 0.9; }
+        .chat-send:disabled { opacity: 0.6; cursor: default; }
+        .chat-ok { color: #15803d; font-size: 0.9rem; text-align: center; display: none; padding-bottom: 6px; }
+
         footer {
             background: #111827; color: #9ca3af;
             text-align: center; padding: 20px; font-size: 0.82rem;
@@ -315,10 +351,54 @@ document.getElementById('contactForm').addEventListener('submit', async function
 });
 </script>
 
+<script>
+// Чат-виджет
+document.getElementById('chatToggle').addEventListener('click', function() {
+    document.getElementById('chatWindow').classList.toggle('open');
+});
+document.getElementById('chatSend').addEventListener('click', async function() {
+    const btn = this;
+    const name = document.getElementById('chatName').value.trim() || 'не указано';
+    const msg = document.getElementById('chatMsg').value.trim();
+    if (!msg) return;
+    btn.disabled = true;
+    btn.textContent = 'Отправляем...';
+    try {
+        const r = await fetch('https://loreworlds.ru:8443/api/travertin-contact', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({name, phone: '—', message: msg})
+        });
+        if (r.ok) {
+            document.getElementById('chatOk').style.display = 'block';
+            document.getElementById('chatMsg').style.display = 'none';
+            document.getElementById('chatName').style.display = 'none';
+            btn.style.display = 'none';
+        } else { throw new Error(); }
+    } catch {
+        btn.disabled = false;
+        btn.textContent = 'Отправить';
+        alert('Ошибка. Напишите нам напрямую в Telegram или WhatsApp.');
+    }
+});
+</script>
+
 <footer>
     <strong>Травертин — Новосибирск</strong> · Декоративная штукатурка для фасадов и интерьеров
     <div style="margin-top:8px;font-size:0.75rem;color:#6b7280;">Сайт сделан в <a href="https://sitebystro.ru" target="_blank" rel="dofollow" style="color:#6b7280;">СайтБыстро</a></div>
 </footer>
+
+<!-- Чат-виджет -->
+<button class="chat-btn" id="chatToggle" title="Написать нам">💬</button>
+<div class="chat-window" id="chatWindow">
+    <div class="chat-header">Написать нам</div>
+    <div class="chat-body">
+        <input type="text" id="chatName" placeholder="Ваше имя" />
+        <textarea id="chatMsg" placeholder="Ваш вопрос или сообщение..."></textarea>
+        <button class="chat-send" id="chatSend">Отправить</button>
+        <div class="chat-ok" id="chatOk">✅ Сообщение отправлено! Ответим вам скоро.</div>
+    </div>
+</div>
 
 <!-- Лайтбокс -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">

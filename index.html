@@ -173,13 +173,14 @@
         /* Чат-виджет */
         .chat-btn {
             position: fixed; bottom: 24px; right: 24px; z-index: 1000;
-            width: 60px; height: 60px; border-radius: 50%;
-            background: var(--color); color: white; font-size: 1.6rem;
-            border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            display: flex; align-items: center; justify-content: center;
+            padding: 16px 24px; border-radius: 50px;
+            background: var(--color); color: white; font-size: 1.1rem; font-weight: 800;
+            border: none; cursor: pointer; box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+            display: flex; align-items: center; gap: 10px;
             transition: transform 0.2s;
+            white-space: nowrap;
         }
-        .chat-btn:hover { transform: scale(1.08); }
+        .chat-btn:hover { transform: scale(1.04); }
         .chat-window {
             position: fixed; bottom: 96px; right: 24px; z-index: 1000;
             width: 300px; background: white; border-radius: 18px;
@@ -389,7 +390,7 @@ document.getElementById('chatSend').addEventListener('click', async function() {
 </footer>
 
 <!-- Чат-виджет -->
-<button class="chat-btn" id="chatToggle" title="Написать нам">💬</button>
+<button class="chat-btn" id="chatToggle">💬 Написать нам</button>
 <div class="chat-window" id="chatWindow">
     <div class="chat-header">Написать нам</div>
     <div class="chat-body">

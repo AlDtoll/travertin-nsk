@@ -270,6 +270,13 @@
         <h2 class="fade-up">Наши работы</h2>
         <p class="works-sub fade-up">Выполненные объекты в Новосибирске и области</p>
 
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
+            <video src="videos/video1.mp4" controls playsinline muted
+                style="flex:1;min-width:220px;max-width:100%;border-radius:12px;background:#000;max-height:320px;"></video>
+            <video src="videos/video2.mp4" controls playsinline muted
+                style="flex:1;min-width:220px;max-width:100%;border-radius:12px;background:#000;max-height:320px;"></video>
+        </div>
+
         <div class="tabs">
             <button class="tab-btn active" onclick="filterGallery('all', this)">Все работы</button>
             <button class="tab-btn" onclick="filterGallery('facade', this)">Фасады</button>
@@ -412,11 +419,9 @@ document.getElementById('chatSend').addEventListener('click', async function() {
 </div>
 
 <script>
-// Генерируем список фото (84 штуки)
-const TOTAL_PHOTOS = 84;
+// Генерируем список фото
+const TOTAL_PHOTOS = 86;
 
-// Простая категоризация по номеру (можно поменять вручную)
-// 1-30: фасады, 31-50: заборы, 51-84: разное
 function getCategory(n) {
     if (n <= 30) return 'facade';
     if (n <= 50) return 'fence';
@@ -430,7 +435,10 @@ let lightboxIndex = 0;
 
 function buildGallery() {
     allPhotos = [];
-    for (let i = 1; i <= TOTAL_PHOTOS; i++) {
+    // Новые фото (85, 86) — первыми
+    allPhotos.push({ src: 'photos/photo85.jpg', cat: 'facade' });
+    allPhotos.push({ src: 'photos/photo86.jpg', cat: 'facade' });
+    for (let i = 1; i <= 84; i++) {
         allPhotos.push({ src: `photos/photo${i}.jpg`, cat: getCategory(i) });
     }
     renderGallery();

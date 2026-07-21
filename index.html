@@ -368,6 +368,7 @@ document.getElementById('chatToggle').addEventListener('click', function() {
 document.getElementById('chatSend').addEventListener('click', async function() {
     const btn = this;
     const name = document.getElementById('chatName').value.trim() || 'не указано';
+    const phone = document.getElementById('chatPhone').value.trim() || 'не указан';
     const msg = document.getElementById('chatMsg').value.trim();
     if (!msg) return;
     btn.disabled = true;
@@ -376,7 +377,7 @@ document.getElementById('chatSend').addEventListener('click', async function() {
         const r = await fetch('https://loreworlds.ru:8443/api/travertin-contact', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({name, phone: '—', message: msg})
+            body: JSON.stringify({name, phone, message: msg})
         });
         if (r.ok) {
             document.getElementById('chatOk').style.display = 'block';
@@ -404,6 +405,7 @@ document.getElementById('chatSend').addEventListener('click', async function() {
     <div class="chat-header">Написать нам</div>
     <div class="chat-body">
         <input type="text" id="chatName" placeholder="Ваше имя" />
+        <input type="tel" id="chatPhone" placeholder="Номер телефона" />
         <textarea id="chatMsg" placeholder="Ваш вопрос или сообщение..."></textarea>
         <button class="chat-send" id="chatSend">Отправить</button>
         <div class="chat-ok" id="chatOk">✅ Сообщение отправлено! Ответим вам скоро.</div>
